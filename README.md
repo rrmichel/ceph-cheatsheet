@@ -36,13 +36,30 @@
 
 | command | description |
 |-|-|
-| `` ||
+| `ceph pg stat` ||
+| `ceph pg ls` ||
+| `ceph pg dump` ||
+| `ceph pg $pgid query` ||
+| `ceph pg map $pgid` ||
+| `ceph pg repair $pgid` ||
+| `ceph osd map $poolname $obj-name` ||
 
 # osds
 
 | command | description |
 |-|-|
-| `` ||
+| `ceph osd set $flag` | e.g. noout or norebalance |
+| `ceph osd perf` ||
+| `ceph osd metadata $osdid` ||
+| `ceph osd find $osdid` ||
+| `ceph osd down $osdid` ||
+| `ceph osd in $osdid` ||
+| `ceph osd destroy $osdid` ||
+| `ceph osd purge $osdid` ||
+| `ceph osd pause|unpause` ||
+| `ceph osd blacklist add $clientip` ||
+| `ceph osd reweight $osdid $float` | set a reweight (0..1) for a osd - don't mix that with the next cmd (!!!!!^111) |
+| `ceph osd crush reweight $osdid $float` | set a new weight for a osd - usally the disk size. |
 
 # cephx
 
