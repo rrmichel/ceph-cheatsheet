@@ -80,6 +80,24 @@
 | `ceph auth get-key client.$user` | shows only the key for client.$user |
 | `ceph auth caps client.$user mon '$mon_caps' osd '$osd_caps' mds '$mds_caps'` | modify the caps for client.$user |
 
+#### mon caps
+
+`allow rw` or `profile rbd`
+
+#### osd caps
+
+`allow [rwx] [namespace=$ns] [pool=$pool_name]`
+
+or
+
+`profile $profile [namespace=$ns] [pool=$pool_name]`
+
+see [cephx profiles](https://docs.ceph.com/docs/master/rados/operations/user-management/#authorization-capabilities)
+
+#### mds caps
+
+`allow [rwxs] [path=/] [tag $application data=$cephfs_name]`
+
 #### Restore a lost `ceph.client.admin.keyring`
 
 `[root@ceph-mon]# ceph -n mon. -k /var/lib/ceph/mon/ceph-$hostname/keyring auth export client.admin`
@@ -92,8 +110,16 @@
 
 # ceph-daemons
 
+A daemon is eg.
+* mon.$hostname
+* osd.*
+* osd.$id
+* mgr.$hostname
+* mds.$hostname
+
 | command | description |
 |-|-|
 | `ceph tell $daemon $cmd` | eg. `ceph tell osd.1 bench`|
 | `ceph tell $daemon injecargs '--parameter=1'` | set a parameter on-the-fly for a daemon |
+| `ceph daemon $daemon config show` | access a ceph-daemon via tcp |
 | `ceph --admin-daemon $path-to-asok config show` | direct access to a ceph-daemon over a unix socket |
