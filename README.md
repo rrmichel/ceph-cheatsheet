@@ -48,6 +48,13 @@
 
 ![ceph-pg-mapping](images/ceph-pg-osd-mapping.png)
 
+# CRUSH
+
+| command | description |
+|-|-|
+| `ceph osd crush add-bucket $name $type $args` | Add bucket $name as $type to the crush map to location $args eg. `.. add-bucket rack1 rack datacenter=dc1`|
+| `ceph osd crush move $name $type=$name` | Move bucket $name to location $type=$name eg. `.. move rack1 datacenter=dc1`|
+
 # osds
 
 | command | description |
@@ -82,3 +89,11 @@
 | command | description |
 |-|-|
 | `rbd create --size $size $name` ||
+
+# ceph-daemons
+
+| command | description |
+|-|-|
+| `ceph tell $daemon $cmd` | eg. `ceph tell osd.1 bench`|
+| `ceph tell $daemon injecargs '--parameter=1'` | set a parameter on-the-fly for a daemon |
+| `ceph --admin-daemon $path-to-asok config show` | direct access to a ceph-daemon over a unix socket |
