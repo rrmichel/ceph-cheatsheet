@@ -44,6 +44,8 @@
 | `ceph pg repair $pgid` ||
 | `ceph osd map $poolname $obj-name` ||
 
+![ceph-pg-mapping](images/ceph-pg-osd-mapping.png)
+
 # osds
 
 | command | description |
@@ -65,10 +67,16 @@
 
 | command | description |
 |-|-|
-| `` ||
+| `ceph auth get-or-create client.$user mon '$mon_caps' osd '$ods_caps' mds '$mds_caps'` ||
+| `ceph auth get-key client.$user` | shows only the key for client.$user |
+| `ceph auth caps client.$user mon '$mon_caps' osd '$ods_caps' mds '$mds_caps'` | modify the caps for client.$user |
+
+#### Restore a lost `ceph.client.admin.keyring`
+
+`[root@ceph-mon]# ceph -n mon. -k /var/lib/ceph/mon/ceph-$hostname/keyring auth export client.admin`
 
 # rbd
 
 | command | description |
 |-|-|
-| `` ||
+| `rbd create --size $size $name` ||
