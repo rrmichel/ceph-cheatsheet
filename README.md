@@ -109,7 +109,7 @@ The rule above only allow to write/read on pools which have the application `cep
 
 #### Restore a lost `ceph.client.admin.keyring`
 
-`[root@ceph-mon]# ceph -n mon. -k /var/lib/ceph/mon/ceph-$hostname/keyring auth export client.admin`
+`[root@ceph-mon]# ceph -n mon. -k /var/lib/ceph/mon/ceph-$(hostname)/keyring auth export client.admin`
 
 # rbd
 
@@ -129,6 +129,6 @@ A daemon is eg.
 | command | description |
 |-|-|
 | `ceph tell $daemon $cmd` | eg. `ceph tell osd.1 bench`|
-| `ceph tell $daemon injecargs '--parameter=1'` | set a parameter on-the-fly for a daemon |
+| `ceph tell $daemon injecargs '--parameter=1'` | set a parameter on-the-fly for a daemon eg. `--debug_mon=20/20` |
 | `ceph daemon $daemon config show` | access a ceph-daemon via tcp |
-| `ceph --admin-daemon $path-to-asok config show` | direct access to a ceph-daemon over a unix socket |
+| `ceph --admin-daemon /var/run/ceph/ceph-mon.$(hostname).asok config show` | direct access to a ceph-daemon over a unix socket |
