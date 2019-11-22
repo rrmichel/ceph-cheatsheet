@@ -30,7 +30,8 @@
 | `ceph osd pool set $name min_size $size` | set the min_size for the pool $name to $size |
 | `ceph osd erasure-code-profile set rack84 k=8 m=4 crush-failure-domain=rack` | create a new EC profile with 8+4 and rack as failure domain |
 | `ceph osd pool create backup 64 erasure rack84` | create a pool `backup` with 64 pgs with erasure code and `rack84` as profile |
-| `ceph osd pool application enable backuo cephfs` | set `cephfs` as application on the pool backup |
+| `ceph osd pool application enable backup cephfs` | set `cephfs` as application on the pool backup |
+| `ceph osd pool application set backup cephfs data=cephfs` | set k/v (`data=cephfs`) for application `cephfs` on the pool backup |
 
 # pgs
 
@@ -94,9 +95,17 @@ or
 
 see [cephx profiles](https://docs.ceph.com/docs/master/rados/operations/user-management/#authorization-capabilities)
 
+As a general rule you should always use `profile ...` instead of e.g. `rw` !!
+
 #### mds caps
 
-`allow [rwxs] [path=/] [tag $application data=$cephfs_name]`
+`allow [rwxs] [path=/] [tag $application $key=$value]`
+
+The `tag` flag corresponds to the `application` of a pool. With key/value you can add your own parameters to a key.
+
+`caps: [osd] allow rw tag cephfs data=cephfs`
+
+The rule above only allow to write/read on pools which have the application `cephfs` set, and additionally the k/v entry `data=cephfs` exists in the application. See **Pools**!
 
 #### Restore a lost `ceph.client.admin.keyring`
 
